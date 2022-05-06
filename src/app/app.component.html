@@ -1,8 +1,8 @@
 
+<div>
+  <h1>Gallery masonry</h1>
 
-
-<section class="my-columns">
-  <div *ngFor="let col of colsAsIterable; index as i" class="masonry-column">
-    <div *ngFor="let thing of myThings | masonry : numColumns : i+1" class="masonry-column"></div>
-  </div>
-</section>
+  <gallery-smart
+    [nbColumns]="3"
+  ></gallery-smart>
+</div>

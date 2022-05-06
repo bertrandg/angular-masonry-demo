@@ -1,27 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class StoreService {
-  photosList$ = new BehaviorSubject<IList>({page: 0, isLoading: false, ids: []});
-  photosDetails$ = new BehaviorSubject<IDetails>({});
+  currentPage = 0;
+  isLoading$ = new BehaviorSubject<boolean>(false);
+  photosList$ = new BehaviorSubject<Array<string>>([]);
+  photosDetails$ = new BehaviorSubject<{[id: string]: IPhotoAugmented}>({});
 
   constructor(private http: HttpClient) { }
 
   loadNextPage() {
-    if(this.photosList$.value.isLoading) {
+    if(this.isLoading$.value) {
       return;
     }
 
-    this.photosList$.next({
-      ...this.photosList$.value,
-      isLoading: true,
-    });
+    this.isLoading$.next(true);
 
-    const pageToLoad = this.photosList$.value.page + 1;
+    const pageToLoad = this.currentPage + 1;
 
     this.loadPhotos(pageToLoad).subscribe({
       next: results => {
@@ -30,20 +30,25 @@ export class StoreService {
           ...results.reduce((acc, r) => {
             acc[r.id] = {
               ...r,
-              nb_likes: 0,
-              nb_comments: 0,
+              nbLikes: 0,
+              nbComments: 0,
             };
             return acc;
           }, {}),
         });
 
-        this.photosList$.next({
-          page: pageToLoad,
-          isLoading: false,
-          ids: [...this.photosList$.value.ids, ...results.map(r => r.id)],
-        });
+        this.photosList$.next([
+          ...this.photosList$.value, 
+          ...results.map(r => r.id)
+        ]);
+
+        this.isLoading$.next(false);
+        
+        this.currentPage = pageToLoad;
       },
       error: err => {
+        this.isLoading$.next(false);
+
         console.error('WTF MARTY >', err);
       },
     });
@@ -53,22 +58,19 @@ export class StoreService {
     const url = `https://picsum.photos/v2/list?page=${ page }&limit=10`;
     return this.http.get<Array<IPhoto>>(url);
   }
+
+  getPhotoDetails(id: string) {
+    return this.photosDetails$.pipe(
+      map(d => d[id]),
+      distinctUntilChanged(),
+    );
+  }
 }
 
 
-interface IList {
-  page: number;
-  isLoading: boolean;
-  ids: Array<string>;
-}
-
-interface IDetails {
-  [id: string]: IPhotoAugmented;
-}
-
-interface IPhotoAugmented extends IPhoto {
-  nb_likes: number;
-  nb_comments: number;
+export interface IPhotoAugmented extends IPhoto {
+  nbLikes: number;
+  nbComments: number;
 }
 
 interface IPhoto {
