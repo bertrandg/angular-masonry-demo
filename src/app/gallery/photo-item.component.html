@@ -1,0 +1,18 @@
+
+<img 
+  [src]="imageSrc" 
+  [style.opacity]="isLoaded ? 1 : 0" 
+  (load)="imageLoaded()" 
+/>
+
+<div>
+  <div>
+    {{ photoDetails.nbLikes }}
+    <mat-icon>home</mat-icon>
+  </div>
+
+  <div>
+    {{ photoDetails.nbComments }}
+    <mat-icon>home</mat-icon>
+  </div>
+</div>

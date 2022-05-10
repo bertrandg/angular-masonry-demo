@@ -4,41 +4,8 @@ import { IPhotoAugmented } from '../state.service';
 @Component({
   selector: 'photo-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [`
-    :host {
-      display: block;
-      position: relative;
-      overflow: hidden;
-    }
-    :host > img {
-      width: 100%;
-      height: auto;
-      opacity: 0;
-      transition: opacity .5s, filter .3s;
-      cursor: pointer;
-    }
-    :host > img:hover {
-      filter: contrast(70%);
-    }
-    :host > div {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-    `],
-  template: `
-    <img [src]="imageSrc" [style.opacity]="isLoaded ? 1 : 0" (load)="imageLoaded()" />
-    <div>
-      <div>
-        {{ photoDetails.nbLikes }}
-        <mat-icon>home</mat-icon>
-      </div>
-      <div>
-        {{ photoDetails.nbComments }}
-        <mat-icon>home</mat-icon>
-      </div>
-    </div>
-    `,
+  styleUrls: [`./photo-item.component.scss`],
+  templateUrl: ``,
 })
 export class PhotoItemComponent implements OnInit {
   @Input() photoDetails: IPhotoAugmented;

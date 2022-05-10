@@ -1,0 +1,31 @@
+
+:host {
+  display: block;
+  position: relative;
+  z-index: 1;
+  transition: opacity .5s, transform .1s;
+
+  &:hover {
+    transform: scale(1.1);
+
+    img {
+      filter: contrast(70%);
+      z-index: 10;
+    }
+  }
+
+  & > img {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: filter .3s;
+    cursor: pointer;
+  }
+
+
+  & > div {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
