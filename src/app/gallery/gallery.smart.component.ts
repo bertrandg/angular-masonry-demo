@@ -15,10 +15,12 @@ import { StoreService } from '../state.service';
 export class GallerySmartComponent implements OnInit {
   @Input() nbColumns: number;
   
-  isLoading$ = this.storeService.isLoading$;
-  photosList$ = this.storeService.photosList$;
+  isLoading$ = this.storeService.getIsLoading();
+  photosList$ = this.storeService.getPhotosList();
 
-  constructor(private storeService: StoreService) {}
+  constructor(private storeService: StoreService) {
+    console.log('GallerySmartComponent');
+  }
 
   ngOnInit() {
     // Go load page 1

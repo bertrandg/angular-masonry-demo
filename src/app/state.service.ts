@@ -7,10 +7,10 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class StoreService {
-  currentPage = 0;
-  isLoading$ = new BehaviorSubject<boolean>(false);
-  photosList$ = new BehaviorSubject<Array<string>>([]);
-  photosDetails$ = new BehaviorSubject<{[id: string]: IPhotoAugmented}>({});
+  private currentPage = 0;
+  private isLoading$ = new BehaviorSubject<boolean>(false);
+  private photosList$ = new BehaviorSubject<Array<string>>([]);
+  private photosDetails$ = new BehaviorSubject<{[id: string]: IPhotoAugmented}>({});
 
   constructor(private http: HttpClient) { }
 
@@ -57,6 +57,14 @@ export class StoreService {
   private loadPhotos(page: number) {
     const url = `https://picsum.photos/v2/list?page=${ page }&limit=10`;
     return this.http.get<Array<IPhoto>>(url);
+  }
+
+  getIsLoading() {
+    return this.isLoading$.asObservable();
+  }
+
+  getPhotosList() {
+    return this.photosList$.asObservable();
   }
 
   getPhotoDetails(id: string) {

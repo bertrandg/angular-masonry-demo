@@ -2,16 +2,16 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, O
 import { IPhotoAugmented } from '../state.service';
 
 @Component({
-  selector: 'photo',
+  selector: 'photo-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <img [src]="photoDetails.download_url" />
+      <img [src]="url" />
       <p>{{ photoDetails.nbLikes }}</p>
       <p>{{ photoDetails.nbComments }}</p>
     </div>`,
 })
-export class PhotoComponent {
+export class PhotoItemComponent {
   @Input() photoDetails: IPhotoAugmented;
 
   @Output() open = new EventEmitter<null>();
@@ -19,5 +19,9 @@ export class PhotoComponent {
   @HostBinding('click')
   click() {
     this.open.emit();
+  }
+
+  get url() {
+    return `https://picsum.photos/id/${ this.photoDetails.id }/200/300`;
   }
 }
