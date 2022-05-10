@@ -7,10 +7,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
     section {
       display: grid;
       grid-auto-flow: column;
+      width: 750px;
     }
     
     .masonry-column {
-
+      width: 250px;
     }`],
   template: `
     <section>
@@ -21,10 +22,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
         ></photo-item-smart>
       </div>
     </section>
-      <div>
-        <div *ngIf="isLoading">loading..</div>
-        <button *ngIf="!isLoading" (click)="loadNextPage.emit()">LOAD MORE</button>
-      </div>`,
+    <div>
+      <div *ngIf="isLoading">loading..</div>
+      <button *ngIf="!isLoading" (click)="loadNextPage.emit()">LOAD MORE</button>
+    </div>`,
 })
 export class GalleryComponent {
   @Input() isLoading: boolean;
@@ -38,8 +39,4 @@ export class GalleryComponent {
   cols: Array<number> = [];
 
   @Output() loadNextPage = new EventEmitter<null>();
-
-  constructor() {
-    console.log('GalleryComponent');
-  }
 }

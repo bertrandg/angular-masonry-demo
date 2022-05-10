@@ -8,6 +8,8 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 })
 export class StoreService {
   private currentPage = 0;
+  private itemPerPage = 18;
+
   private isLoading$ = new BehaviorSubject<boolean>(false);
   private photosList$ = new BehaviorSubject<Array<string>>([]);
   private photosDetails$ = new BehaviorSubject<{[id: string]: IPhotoAugmented}>({});
@@ -55,7 +57,7 @@ export class StoreService {
   }
 
   private loadPhotos(page: number) {
-    const url = `https://picsum.photos/v2/list?page=${ page }&limit=10`;
+    const url = `https://picsum.photos/v2/list?page=${ page }&limit=${ this.itemPerPage }`;
     return this.http.get<Array<IPhoto>>(url);
   }
 
