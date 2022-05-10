@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class MasonryPipe implements PipeTransform {
 
-  transform(value: any[], numColumns: number, colNum: number): unknown {
+  transform(value: any[], numColumns: number, colNum: number): any[] {
     if (value.length === 0) {
       return value;
     }
