@@ -4,4 +4,5 @@
 
 [Play with it here](https://angular-ivy-d46bzn.stackblitz.io)
 
-[Inspired from this article: https://javascript.plainenglish.io/masonry-layouts-with-angular-71c0b5a80c36](https://javascript.plainenglish.io/masonry-layouts-with-angular-71c0b5a80c36)
+Inspired from this article:
+[https://javascript.plainenglish.io/masonry-layouts-with-angular-71c0b5a80c36](https://javascript.plainenglish.io/masonry-layouts-with-angular-71c0b5a80c36)
