@@ -14,11 +14,17 @@ export class PhotoItemComponent implements OnInit {
 
   imageSrc: string;
   isLoaded = false;
+  randomNum = Math.round(Math.random()*10) + 1;
   randomDelay = Math.round(Math.random()*10)/10/2;
   randomValue = Math.round(Math.random() * 800);
 
   @HostBinding('style.height.px')
   containerHeight: number;
+  
+  @HostBinding('class')
+  get cssClasses(): string {
+    return `bg-color-variant-${ this.randomNum }`;
+  };
 
   @HostListener('click')
   click() {
