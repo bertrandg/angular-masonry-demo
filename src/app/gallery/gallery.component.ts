@@ -4,12 +4,16 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   selector: 'gallery',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
+    :host {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
     section {
       display: grid;
       grid-auto-flow: column;
       width: 750px;
     }
-    
     .masonry-column {
       width: 250px;
     }`],

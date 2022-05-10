@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { IPhotoAugmented } from '../state.service';
 
 @Component({
@@ -8,10 +8,13 @@ import { IPhotoAugmented } from '../state.service';
     :host {
       display: block;
       position: relative;
+      overflow: hidden;
     }
     :host > img {
       width: 100%;
       height: auto;
+      opacity: 0;
+      transition: opacity .5s;
     }
     :host > div {
       position: absolute;
@@ -20,35 +23,55 @@ import { IPhotoAugmented } from '../state.service';
     }
     `],
   template: `
-    <img [src]="url" />
+    <img [src]="imageSrc" [style.opacity]="isLoaded ? 1 : 0" (load)="imageLoaded()" />
     <div>
-      <div>{{ photoDetails.nbLikes }}</div>
-      <div>{{ photoDetails.nbComments }}</div>
+      <div>
+        {{ photoDetails.nbLikes }}
+        <mat-icon>home</mat-icon>
+      </div>
+      <div>
+        {{ photoDetails.nbComments }}
+        <mat-icon>home</mat-icon>
+      </div>
     </div>
     `,
 })
-export class PhotoItemComponent {
+export class PhotoItemComponent implements OnInit {
   @Input() photoDetails: IPhotoAugmented;
 
   @Output() open = new EventEmitter<null>();
 
+  imageSrc: string;
+  isLoaded = false;
+  randomDelay = Math.round(Math.random()*10)/10;
   randomValue = Math.round(Math.random() * 800);
 
-  @HostBinding('click')
+  @HostBinding('style.height.px')
+  containerHeight: number;
+
+  @HostListener('click')
   click() {
     this.open.emit();
   }
 
-  get url() {
-    if(!this.photoDetails) {
-      return '';
-    }
+  constructor(private cdRef: ChangeDetectorRef) {}
 
+  ngOnInit() {
     const _w = (this.photoDetails.width > this.photoDetails.height) ? this.photoDetails.width - this.randomValue : this.photoDetails.width;
     const _h = (this.photoDetails.height > this.photoDetails.width) ? this.photoDetails.height - this.randomValue : this.photoDetails.height;
-    const size = getThumbnailSize(_w, _h, 400, 400);
+    const imageSize = getThumbnailSize(_w, _h, 400, 400);
 
-    return `https://picsum.photos/id/${ this.photoDetails.id }/${ size.w }/${ size.h }`;
+    this.imageSrc = `https://picsum.photos/id/${ this.photoDetails.id }/${ imageSize.w }/${ imageSize.h }`;
+
+    const containerSize = getThumbnailSize(_w, _h, 250, 400);
+    this.containerHeight = containerSize.h - 1;
+  }
+
+  imageLoaded() {
+    setTimeout(() => {
+      this.isLoaded = true;
+      this.cdRef.markForCheck();
+    }, this.randomDelay);
   }
 }
 
