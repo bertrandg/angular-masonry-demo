@@ -5,7 +5,7 @@ import { IPhotoAugmented } from '../state.service';
   selector: 'photo-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [`./photo-item.component.scss`],
-  templateUrl: ``,
+  templateUrl: `./photo-item.component.html`,
 })
 export class PhotoItemComponent implements OnInit {
   @Input() photoDetails: IPhotoAugmented;

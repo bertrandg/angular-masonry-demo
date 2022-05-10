@@ -9,6 +9,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
       align-items: center;
       flex-direction: column;
     }
+    :host > div {
+      margin: 30px 0;
+    }
     section {
       display: grid;
       grid-auto-flow: column;

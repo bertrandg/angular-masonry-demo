@@ -32,8 +32,8 @@ export class StoreService {
           ...results.reduce((acc, r) => {
             acc[r.id] = {
               ...r,
-              nbLikes: 0,
-              nbComments: 0,
+              nbLikes: Math.round(Math.random() * 200),
+              nbComments: Math.round(Math.random() * 50),
             };
             return acc;
           }, {}),
@@ -91,3 +91,4 @@ interface IPhoto {
   url: string;
   download_url: string;
 }
+

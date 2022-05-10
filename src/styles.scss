@@ -1,1 +1,34 @@
 /* Add application styles & imports to this file! */
+
+$baseColor: #f5deb3;
+
+.bg-color-variant-1 {
+  background-color: darken($baseColor, 50);
+}
+.bg-color-variant-2 {
+  background-color: darken($baseColor, 55);
+}
+.bg-color-variant-3 {
+  background-color: darken($baseColor, 60);
+}
+.bg-color-variant-4 {
+  background-color: darken($baseColor, 65);
+}
+.bg-color-variant-5 {
+  background-color: darken($baseColor, 70);
+}
+.bg-color-variant-6 {
+  background-color: darken($baseColor, 75);
+}
+.bg-color-variant-7 {
+  background-color: darken($baseColor, 80);
+}
+.bg-color-variant-8 {
+  background-color: darken($baseColor, 85);
+}
+.bg-color-variant-9 {
+  background-color: darken($baseColor, 90);
+}
+.bg-color-variant-10 {
+  background-color: darken($baseColor, 95);
+}

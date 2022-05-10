@@ -3,14 +3,19 @@
   display: block;
   position: relative;
   z-index: 1;
-  transition: opacity .5s, transform .1s;
+  background-color: #f5deb3;
 
   &:hover {
-    transform: scale(1.1);
+    z-index: 10;
 
-    img {
-      filter: contrast(70%);
-      z-index: 10;
+    & > img {
+      filter: contrast(85%);
+      transform: scale(1.2);
+      box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    & > div {
+      opacity: 0;
     }
   }
 
@@ -18,7 +23,7 @@
     width: 100%;
     height: auto;
     opacity: 0;
-    transition: filter .3s;
+    transition: opacity .5s, filter .3s, transform .2s;
     cursor: pointer;
   }
 
@@ -27,5 +32,21 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    color: white;
+    display: flex;
+    opacity: 1;
+    transition: opacity .1s;
+    text-shadow: #000000 1px 0 10px;
+
+    & > div {
+      display: flex;
+      align-items: flex-start;
+      margin-left: 5px;
+    }
+
+    mat-icon {
+      font-size: 16px;
+      margin-left: 4px;
+    }
   }
 }
