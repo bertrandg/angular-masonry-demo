@@ -14,7 +14,11 @@ import { IPhotoAugmented } from '../state.service';
       width: 100%;
       height: auto;
       opacity: 0;
-      transition: opacity .5s;
+      transition: opacity .5s, filter .3s;
+      cursor: pointer;
+    }
+    :host > img:hover {
+      filter: contrast(70%);
     }
     :host > div {
       position: absolute;
@@ -43,7 +47,7 @@ export class PhotoItemComponent implements OnInit {
 
   imageSrc: string;
   isLoaded = false;
-  randomDelay = Math.round(Math.random()*10)/10;
+  randomDelay = Math.round(Math.random()*10)/10/2;
   randomValue = Math.round(Math.random() * 800);
 
   @HostBinding('style.height.px')
